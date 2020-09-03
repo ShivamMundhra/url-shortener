@@ -15,7 +15,7 @@ const Redirect = (props) => {
   };
   const params = useParams();
   useEffect(() => {
-    axios.get(`/redirect/${params.shortId}`).then((data) => {
+    axios.get(`/api/v1/redirect/${params.shortId}`).then((data) => {
       const { longUrl } = data.data;
       setLongUrl(longUrl);
     });
