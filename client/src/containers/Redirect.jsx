@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Lottie from "react-lottie";
 import animationData from "../assets/410-lego-loader.json";
+import styles from "./styles.module.css";
 const Redirect = (props) => {
   const [longUrl, setLongUrl] = useState("");
   const defaultOptions = {
@@ -25,7 +26,7 @@ const Redirect = (props) => {
     return () => clearTimeout(timer);
   }, [params.shortId, longUrl]);
   return (
-    <div>
+    <div className={styles.redirect}>
       <Lottie
         options={defaultOptions}
         height={400}

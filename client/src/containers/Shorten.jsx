@@ -6,7 +6,7 @@ import copy from "copy-to-clipboard";
 import styles from "./styles.module.css";
 import Snackbar from "@bit/mui-org.material-ui.snackbar";
 
-const Home = (props) => {
+const Shorten = (props) => {
   const [url, setUrl] = useState("");
   const [shortId, setShortId] = useState("");
   const [open, setOpen] = useState(false);
@@ -23,7 +23,7 @@ const Home = (props) => {
       .catch((err) => console.log(err));
   };
   const copyTextToClipboard = () => {
-    copy(`${origin}/${shortId}`);
+    copy(`${origin}/redirect/${shortId}`);
     setOpen(true);
   };
   const handleClose = (event, reason) => {
@@ -34,14 +34,16 @@ const Home = (props) => {
     setOpen(false);
   };
   return (
-    <div className={styles.Home}>
+    <div className={styles.Shorten}>
       <form onSubmit={handleSubmit}>
         <input value={url} name={url} type="text" onChange={handleUrl} />
         <button type="submit">Shorten</button>
       </form>
       {shortId ? (
         <div className={styles.copyBox} onClick={copyTextToClipboard}>
-          <span className={styles.noselect}>{`${origin}/${shortId}`}</span>
+          <span
+            className={styles.noselect}
+          >{`${origin}/redirect/${shortId}`}</span>
         </div>
       ) : (
         <div className={styles.emptyBox}>&nbsp;</div>
@@ -60,4 +62,4 @@ const Home = (props) => {
   );
 };
 
-export default Home;
+export default Shorten;
