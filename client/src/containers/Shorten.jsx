@@ -35,6 +35,7 @@ const Shorten = (props) => {
   };
   return (
     <div className={styles.Shorten}>
+      <span className={styles.label}>Enter long Url</span>
       <form onSubmit={handleSubmit}>
         <input value={url} name={url} type="text" onChange={handleUrl} />
         <button type="submit">Shorten</button>

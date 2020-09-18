@@ -6,10 +6,13 @@ import Redirect from "./containers/Redirect";
 import Home from "./containers/Home";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
-
+import Navbar from "./containers/Navbar";
+import Cursor from "./components/Cursor";
 function App() {
   return (
     <div className="App">
+      <Cursor />
+      <Navbar />
       <Switch>
         <Route exact path="/" render={(routeProps) => <Home />} />
         <Route exact path="/shorten" render={(routeProps) => <Shorten />} />
