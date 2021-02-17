@@ -25,6 +25,13 @@ form input {
   font-size: 1.2rem;
 }
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus,
+a:focus {
+    outline: none;
+}
 form label {
   display: flex;
   flex-direction: column;
@@ -87,7 +94,7 @@ form button {
 }
 
 .title {
-  font-size: 4rem;
+  font-size: 3rem;
   color: #64ffda;
 }
 
@@ -106,6 +113,7 @@ form button {
 
 .navLinkActive {
   border-bottom: 3px solid #ff6700;
+  outline: none;
 }
 
 .nav .btn:hover {
@@ -115,7 +123,7 @@ form button {
 .nav a {
   color: #64ffda;
   text-decoration: none;
-  cursor: none;
+  /* cursor: none; */
 }
 
 .shortenContainer {
@@ -150,4 +158,53 @@ form button {
 
 .Login {
   margin-top: 100px;
+}
+.SignUp{
+  margin-top: 40px;
+}
+.History{
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.contentBox{
+  width: 750px;
+}
+.linkRow,.headingRow{
+  display: flex;
+  justify-content: space-between;
+}
+
+.headingRow .fullLink,
+.headingRow .shortLink{
+  color: #ff6700;
+  font-size: 24px;
+  background-color: transparent;
+}
+.fullLink,.shortLink{
+  display: inline-block;
+  font-size: 1.25rem;
+  color: #64ffdbd3;
+  border-radius: 5px;
+  background-color: #64ffdb1f;
+  padding: 5px;
+  margin-top: 5px;
+  text-decoration: none;
+  
+}
+.fullLink{
+  width:64%;
+}
+
+.shortLink{
+  width: 35%;
+}
+
+.userName{
+  font-size: 2.1rem;
+  color: #64ffda;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }

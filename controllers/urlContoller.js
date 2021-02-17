@@ -28,7 +28,7 @@ exports.shorten = async (req, res, next) => {
       if (userId) {
         const updatedUser = await User.findByIdAndUpdate(
           userId,
-          { $push: { urls: { url: doc._id, date: Date.now() } } },
+          { $push: { urls: doc._id } },
           { new: true }
         );
         // console.log(updatedUser);
@@ -55,8 +55,7 @@ exports.getHistory = async (req, res, next) => {
 
   try {
     const user = await User.findById(req.user._id).populate({
-      path: "urls",
-      populate: { path: "url" },
+      path: "urls"
     });
     const { urls } = user;
     return res.status(200).json({

@@ -74,7 +74,7 @@ const sendJWT = (user, statusCode, req, res) => {
     // secure: req.secure || req.headers("x-forwarded-proto") === "https",
   };
 
-  res.cookie("jwt", token, cookieOptions);
+  res.cookie("UrlShortnerJwt", token, cookieOptions);
 
   user.password = undefined;
   res.status(statusCode).json({
@@ -121,7 +121,7 @@ exports.login = async (req, res, next) => {
   } else {
     try {
       const user = await User.findOne({ email: email }).select("+password");
-      console.log(user);
+      // console.log(user);
       if (!user || !(await bcrypt.compare(password, user.password))) {
         return res.status(401).json({ message: "Incorrect Email or Password" });
       }
@@ -142,12 +142,15 @@ exports.protect = async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     token = req.headers.authorization.split(" ")[1];
-  } else if (req.cookie.jwt) {
-    token = req.cookie.jwt;
+  } else if (req.cookies && req.cookies.UrlShortnerJwt) {
+    token = req.cookies.UrlShortnerJwt;
   }
   if (!token) {
     return res.status(400).json({ message: "Please Log In" });
-  }
+  } 
+  // else(
+  //   console.log(token)
+  // )
   jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
     if (err) {
       return res
@@ -179,8 +182,8 @@ exports.isLoggedIn = async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     token = req.headers.authorization.split(" ")[1];
-  } else if (req.cookie && req.cookie.jwt) {
-    token = req.cookie.jwt;
+  } else if (req.cookies && req.cookies.UrlShortnerJwt) {
+    token = req.cookies.UrlShortnerJwt;
   }
   if (!token) {
     // console.log("Hello");
@@ -193,13 +196,63 @@ exports.isLoggedIn = async (req, res, next) => {
       try {
         const user = await User.findById(decoded.id);
         if (!user) {
+          return res
+          .status(400)
+          .json({ message: "Not Logged In" });
+        }
+        return res.status(201).json({
+          status: "sucess",
+          user:{
+            name:user.name,
+            email:user.email,
+            urls:[...user.urls]
+          },
+        });
+      } catch (error) {
+        return res
+        .status(400)
+        .json({ message: "Not Logged In" });
+      }
+    }
+  });
+};
+
+exports.checkUser = async (req, res, next) => {
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  } else if (req.cookies && req.cookies.UrlShortnerJwt) {
+    token = req.cookies.UrlShortnerJwt;
+  }
+  if (!token) {
+    return res.status(400).json({ message: "Please Log In" });
+  } 
+  // else(
+  //   console.log(token)
+  // )
+  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+    if (err) {
+      return next();
+    } else {
+      try {
+        const user = await User.findById(decoded.id);
+        if (!user) {
           return next();
         }
         req.user = user;
-        return next();
+        next();
       } catch (error) {
         return next();
       }
     }
   });
 };
+exports.logout = (req, res, next)=>{
+  res.cookie("UrlShortnerJwt", "logout");
+  res.status(200).json({
+    status: "success",
+  });
+}

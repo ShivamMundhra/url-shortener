@@ -11,6 +11,10 @@ const UrlSchema = new mongoose.Schema({
     required: [true, "shortId required"],
     unique: true,
   },
+  date:{
+    type: Date,
+    default: Date.now,
+  }
 });
 
 const Url = mongoose.model("Url", UrlSchema);

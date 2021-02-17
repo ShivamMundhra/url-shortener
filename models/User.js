@@ -16,15 +16,9 @@ const UserSchema = new mongoose.Schema({
   },
   urls: [
     {
-      url: {
         type: mongoose.Schema.ObjectId,
         ref: "Url",
-      },
-      date: {
-        type: Date,
-        default: Date.now,
-      },
-    },
+    } 
   ],
 });
 

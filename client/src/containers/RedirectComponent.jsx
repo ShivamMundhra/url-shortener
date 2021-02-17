@@ -4,7 +4,7 @@ import axios from "axios";
 import Lottie from "react-lottie";
 import animationData from "../assets/410-lego-loader.json";
 import styles from "./styles.module.css";
-const Redirect = (props) => {
+const RedirectComponent = (props) => {
   const [longUrl, setLongUrl] = useState("");
   const defaultOptions = {
     loop: true,
@@ -47,4 +47,4 @@ const Redirect = (props) => {
   );
 };
 
-export default Redirect;
+export default RedirectComponent;

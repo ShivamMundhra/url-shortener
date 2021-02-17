@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cookieParser = require('cookie-parser');
 
 const morgan = require("morgan");
 const app = express();
@@ -22,11 +23,13 @@ mongoose
 
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 
 app.use("/api/v1/shorten", urlShortnerRouter);
 app.use("/api/v1/redirect", redirectRouter);
 app.use("/api/v1/users", userRouter);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
