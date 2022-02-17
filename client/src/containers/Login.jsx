@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styles from "./styles.module.css";
 import axios from "axios";
-import {useHistory} from "react-router-dom"
-import Snackbar from "@bit/mui-org.material-ui.snackbar";
+import { useHistory } from "react-router-dom";
+// import Snackbar from "@bit/mui-org.material-ui.snackbar";
 
 const initialFormFields = {
   email: "",
@@ -19,12 +19,16 @@ const Login = (props) => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('/api/v1/users/login',formFields)
-    .then((data)=>{
-      props.login(data.data.data.user);
-      history.push("/home");
-    })
-    .catch(err=>{setOpen(true);console.log(err)});
+    axios
+      .post("/api/v1/users/login", formFields)
+      .then((data) => {
+        props.login(data.data.data.user);
+        history.push("/home");
+      })
+      .catch((err) => {
+        setOpen(true);
+        console.log(err);
+      });
   };
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -58,7 +62,7 @@ const Login = (props) => {
         </label>
         <button type="submit">Login</button>
       </form>
-      <Snackbar
+      {/* <Snackbar
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "center",
@@ -67,7 +71,7 @@ const Login = (props) => {
         autoHideDuration={3000}
         onClose={handleClose}
         message="Please try again"
-      />
+      /> */}
     </div>
   );
 };

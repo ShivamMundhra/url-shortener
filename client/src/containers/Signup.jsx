@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import {useHistory} from "react-router-dom"
-import Snackbar from "@bit/mui-org.material-ui.snackbar";
+// import Snackbar from "@bit/mui-org.material-ui.snackbar";
 import axios from "axios";
 import styles from "./styles.module.css"
 const initialFormFields = {
@@ -77,7 +77,7 @@ const SignUp = (props) => {
     </label>
     <button type="submit">Signup</button>
   </form>
-  <Snackbar
+  {/* <Snackbar
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "center",
@@ -86,7 +86,7 @@ const SignUp = (props) => {
         autoHideDuration={3000}
         onClose={handleClose}
         message="Please try again"
-      />
+      /> */}
 </div>;
 };
 

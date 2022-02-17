@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import copy from "copy-to-clipboard";
 import styles from "./styles.module.css";
-import Snackbar from "@bit/mui-org.material-ui.snackbar";
+// import Snackbar from "@bit/mui-org.material-ui.snackbar";
 
 const Shorten = (props) => {
   const [url, setUrl] = useState("");
@@ -49,7 +49,7 @@ const Shorten = (props) => {
       ) : (
         <div className={styles.emptyBox}>&nbsp;</div>
       )}
-      <Snackbar
+      {/* <Snackbar
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "center",
@@ -58,7 +58,7 @@ const Shorten = (props) => {
         autoHideDuration={3000}
         onClose={handleClose}
         message="Link Copied"
-      />
+      /> */}
     </div>
   );
 };

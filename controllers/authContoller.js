@@ -114,6 +114,7 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   let { email, password } = req.body;
+  console.log(email, password);
   const { hasErrors, errors } = validateBeforeSignIn({ email, password });
   if (hasErrors) {
     console.log();
@@ -121,7 +122,7 @@ exports.login = async (req, res, next) => {
   } else {
     try {
       const user = await User.findOne({ email: email }).select("+password");
-      // console.log(user);
+      console.log(user);
       if (!user || !(await bcrypt.compare(password, user.password))) {
         return res.status(401).json({ message: "Incorrect Email or Password" });
       }
@@ -147,7 +148,7 @@ exports.protect = async (req, res, next) => {
   }
   if (!token) {
     return res.status(400).json({ message: "Please Log In" });
-  } 
+  }
   // else(
   //   console.log(token)
   // )
@@ -196,22 +197,18 @@ exports.isLoggedIn = async (req, res, next) => {
       try {
         const user = await User.findById(decoded.id);
         if (!user) {
-          return res
-          .status(400)
-          .json({ message: "Not Logged In" });
+          return res.status(400).json({ message: "Not Logged In" });
         }
         return res.status(201).json({
           status: "sucess",
-          user:{
-            name:user.name,
-            email:user.email,
-            urls:[...user.urls]
+          user: {
+            name: user.name,
+            email: user.email,
+            urls: [...user.urls],
           },
         });
       } catch (error) {
-        return res
-        .status(400)
-        .json({ message: "Not Logged In" });
+        return res.status(400).json({ message: "Not Logged In" });
       }
     }
   });
@@ -229,7 +226,7 @@ exports.checkUser = async (req, res, next) => {
   }
   if (!token) {
     return res.status(400).json({ message: "Please Log In" });
-  } 
+  }
   // else(
   //   console.log(token)
   // )
@@ -250,9 +247,9 @@ exports.checkUser = async (req, res, next) => {
     }
   });
 };
-exports.logout = (req, res, next)=>{
+exports.logout = (req, res, next) => {
   res.cookie("UrlShortnerJwt", "logout");
   res.status(200).json({
     status: "success",
   });
-}
+};
